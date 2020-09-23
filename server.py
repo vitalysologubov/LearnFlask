@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template
+from python_news import get_python_news
 from weather import weather_by_city
 
 
@@ -9,18 +10,14 @@ app = Flask(__name__)
 def index():
     """Отображение погоды"""
 
-    city_weather = weather_by_city('Saint Petersburg, Russia')
+    title = 'Python новости'
+    weather = weather_by_city('Saint Petersburg, Russia')
+    news = get_python_news()
 
-    if city_weather:
-        return (
-            f'Привет! Погода в Санкт-Петербурге: {city_weather["temp_C"]}°, по ощущениям: '
-            f'{city_weather["FeelsLikeC"]}°.'
-        )
-    else:
-        return 'Сервис погоды времено недоступен'
+    return render_template('index.html', title=title, news=news, weather=weather)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     """Вызов приложения"""
 
     app.run()
