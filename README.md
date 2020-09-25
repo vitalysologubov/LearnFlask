@@ -10,5 +10,7 @@
 1. Клонировать репозиторий с GitHub: `git clone https://github.com/vitalysologubov/learn_flask.git`
 2. Создать виртуальное окружение: `python -m venv env`
 3. Установить зависимости `pip install -r requirements.txt`
-4. Запустить приложение: `python server.py`
-5. Открыть в веб-браузере адрес: `http://127.0.0.1:5000/`
+4. Создать базу данных `python create_db.py`
+5. Загрузить новости в базу данных `python get_news.py`
+6. Запустить приложение: `set FLASK_APP=webapp && flask run`
+7. Открыть в веб-браузере адрес: `http://127.0.0.1:5000/`
