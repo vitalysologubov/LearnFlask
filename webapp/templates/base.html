@@ -4,35 +4,21 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <title>{{ title }}</title>
     </head>
     <body>
         <div class="container">
-            <h1>Новостной сайт по Python</h1>
-            <div class="row">
-                <div class="col-8">
-                    <h2>Новости</h2>
-                    {% for new in news %}
-                        <h3><a href="{{ new.url}}">{{ new.title }}</a></h3>
-                        <p>{{ new.published.strftime('%d.%m.%Y') }}</p>
-                        <hr />
-                    {% endfor %}
-                </div>
-                <div class="col-4">
-                    <h2>Прогноз погоды</h2>
-                    {% if weather %}
-                        В Санкт-Петербурге: {{ weather.temp_C }}°, по ощущениям: {{ weather.FeelsLikeC }}°
-                    {% else %}
-                        Сервис погоды временно недоступен.
-                    {% endif %}
-                </div>
-            </div>
+            {% include "menu.html" %}
+            <br/>
+            {% block content %}
+            {% endblock %}
         </div>
-
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

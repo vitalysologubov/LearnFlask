@@ -1,5 +1,10 @@
+*.bak
+*.bat
+*.dat
 *.db
-.vscode/
+*.dir
 __pycache__/
+.idea/
 env/
+migrations/
 config.py
