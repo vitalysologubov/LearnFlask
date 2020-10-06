@@ -1,5 +1,7 @@
+*.bat
 *.db
 .vscode/
 __pycache__/
 env/
+migrations/
 config.py

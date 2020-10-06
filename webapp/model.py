@@ -1,9 +1,14 @@
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 db = SQLAlchemy()
 
+
 class News(db.Model):
+    """Новости"""
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     url = db.Column(db.String, unique=True, nullable=False)
@@ -12,3 +17,31 @@ class News(db.Model):
 
     def __repr__(self):
         return f'News: {self.title} {self.url}'
+
+
+class Users(db.Model, UserMixin):
+    """Пользователи"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), index=True, unique=True)
+    password = db.Column(db.String(128))
+    role = db.Column(db.String(10), index=True)
+
+    def set_password(self, password):
+        """Получение хэша пароля"""
+
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        """Проверка хэша пароля"""
+
+        return check_password_hash(self.password, password)
+
+    @property
+    def is_admin(self):
+        """Проверка роли"""
+
+        return self.role == 'admin'
+
+    def __repr__(self):
+        return f'Users: {self.name} {self.id}'
