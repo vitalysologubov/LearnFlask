@@ -17,6 +17,17 @@ def get_html(url):
         return False
 
 
+def save_python_news(title, url, published):
+    """Сохранение новостей в БД"""
+
+    news_exists = News.query.filter(News.url == url).count()
+
+    if not news_exists:
+        news = News(title=title, url=url, published=published)
+        db.session.add(news)
+        db.session.commit()
+
+
 def get_python_news():
     """Получение раздела новостей из hmtl"""
 
@@ -33,18 +44,7 @@ def get_python_news():
 
             try:
                 published = datetime.strptime(published, '%b. %d, %Y')
-            except ValueError as error:
+            except ValueError:
                 published = datetime.now()
 
             save_python_news(title, url, published)
-
-
-def save_python_news(title, url, published):
-    """Сохранение новостей в БД"""
-
-    news_exists = News.query.filter(News.url == url).count()
-
-    if not news_exists:
-        news = News(title=title, url=url, published=published)
-        db.session.add(news)
-        db.session.commit()

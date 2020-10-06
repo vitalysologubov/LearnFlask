@@ -10,32 +10,32 @@
     </head>
     <body>
         <div class="container">
-            <h1>Новостной сайт по Python</h1>
+            <h1>{{ title }}</h1>
             <div class="row">
-                <div class="col-8">
-                    <h2>{{ title }}</h2>
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            <div class="alert alert-success" role="alert">
-                                {% for message in messages %}
-                                    {{ message }}<br>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    {% endwith %}
-                    {% for new in news %}
-                        <h3><a href="{{ new.url}}">{{ new.title }}</a></h3>
-                        <p>{{ new.published.strftime('%d.%m.%Y') }}</p>
-                        <hr />
-                    {% endfor %}
-                </div>
                 <div class="col-4">
-                    <h2>Прогноз погоды</h2>
-                    {% if weather %}
-                        В Санкт-Петербурге: {{ weather.temp_C }}°, по ощущениям: {{ weather.FeelsLikeC }}°
-                    {% else %}
-                        Сервис погоды временно недоступен.
-                    {% endif %}
+                    <form action="{{ url_for('proccess_login') }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.name.label }}
+                            {{ form.name() }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label }}
+                            {{ form.password() }}
+                        </div>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-warning" role="alert">
+                                    {% for message in messages %}
+                                        {{ message }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        {{ form.submit() }}
+                    </form>
+                </div>
+                <div class="col-8">
                 </div>
             </div>
         </div>
