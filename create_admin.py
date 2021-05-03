@@ -21,7 +21,7 @@ with app.app_context():
     if not password1 == password2:
         print('Пароли отличаются!')
         sys.exit()
-
+    
     new_user = User(name=user_name, role='admin')
     new_user.set_password(password1)
 
